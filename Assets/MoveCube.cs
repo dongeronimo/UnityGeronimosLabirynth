@@ -16,5 +16,9 @@ public class MoveCube : MonoBehaviour
         
     }
 
+    public void MoveRight()
+    {
+        transform.position = new Vector3(1.00001f, 0, 0);
+    }
 
 }

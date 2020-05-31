@@ -1,11 +1,7 @@
 {
-    "name": "Tests",
-    "references": [
-        "GameAssemblyDefinition"
-    ],
-    "optionalUnityReferences": [
-        "TestAssemblies"
-    ],
+    "name": "GameAssemblyDefinition",
+    "references": [],
+    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -11,9 +11,12 @@ namespace Tests
         [Test]
         public void CanMoveCube()
         {
-            Assert.AreEqual(false, true);
-            //GameObject objectThatWillBeMoved = new GameObject();
-            //objectThatWillBeMoved.AddComponent<MoveCube>();
+            GameObject objectThatWillBeMoved = new GameObject();
+            objectThatWillBeMoved.AddComponent<MoveCube>();
+            objectThatWillBeMoved.GetComponent<MoveCube>().MoveRight();
+            Vector3 modifiedPosition = objectThatWillBeMoved.transform.position;
+            float xEpsilon = Mathf.Abs(Mathf.Abs(modifiedPosition.x) - Mathf.Abs(1.0f));
+            Assert.Less(xEpsilon, 0.0001f);
         }
         /*
         // A Test behaves as an ordinary method
