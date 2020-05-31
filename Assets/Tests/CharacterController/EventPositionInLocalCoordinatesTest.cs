@@ -18,6 +18,38 @@ namespace Tests
             Vector2 result = calculator.Calculate(rectTransformPositionInScreenCoordinates, eventInScreenCoordinates);
             Assert.AreEqual(new Vector2(5, 5), result);
         }
+        [Test]
+        public void XIsPositiveIfToTheRightOfOrigin()
+        {
+            EventPositionInLocalCoordinates calculator = new EventPositionInLocalCoordinates();
+            Vector2 origin = new Vector2(2, 2);
+            Vector2 ev = new Vector2(4, 1);
+            Assert.Greater(calculator.Calculate(origin, ev).x, 0);
+        }
+        [Test]
+        public void XIsNegativeIfToTheLeftOfOrigin()
+        {
+            EventPositionInLocalCoordinates calculator = new EventPositionInLocalCoordinates();
+            Vector2 origin = new Vector2(2, 2);
+            Vector2 ev = new Vector2(1, 3);
+            Assert.Less(calculator.Calculate(origin, ev).x, 0);
+        }
+        [Test]
+        public void YIsPositiveIfAboveOrigin()
+        {
+            EventPositionInLocalCoordinates calculator = new EventPositionInLocalCoordinates();
+            Vector2 origin = new Vector2(2, 2);
+            Vector2 ev = new Vector2(2, 3);
+            Assert.Greater(calculator.Calculate(origin, ev).y, 0);
+        }
+        [Test]
+        public void YIsNegativeIfBelowOrigin()
+        {
+            EventPositionInLocalCoordinates calculator = new EventPositionInLocalCoordinates();
+            Vector2 origin = new Vector2(2, 2);
+            Vector2 ev = new Vector2(2, 1);
+            Assert.Less(calculator.Calculate(origin, ev).y, 0);
+        }
 
     }
 }
