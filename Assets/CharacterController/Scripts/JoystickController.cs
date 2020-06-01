@@ -6,36 +6,49 @@ using UnityEngine.EventSystems;
 public class JoystickController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
     IDragHandler, IEndDragHandler
 {
-    private bool isPressed = false;
+    private bool isPressed ;
+    private Vector2 currentEventPosition;
     public void OnDrag(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        isPressed = true;
+        currentEventPosition = eventData.position;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        isPressed = false;
+        currentEventPosition = eventData.position;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        isPressed = true;
+        currentEventPosition = eventData.position;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
+        isPressed = false;
+        currentEventPosition = eventData.position;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        isPressed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(isPressed == true)
+        {
+            GetComponentInChildren<ShowOrHideTouchPosition>().ShowTouchPosition();
+            GetComponentInChildren<ChangeTouchIndicatorPosition>().SetPosition(currentEventPosition);
+        }
+        else
+        {
+            GetComponentInChildren<ShowOrHideTouchPosition>().HideTouchPosition();
+        }
     }
 }
