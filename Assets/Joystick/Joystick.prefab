@@ -97,6 +97,8 @@ GameObject:
   - component: {fileID: 4412106648995840029}
   - component: {fileID: 4412106648995840003}
   - component: {fileID: 4412106648995840002}
+  - component: {fileID: 4412106648442860148}
+  - component: {fileID: 4412106648442860149}
   m_Layer: 5
   m_Name: TouchPosition
   m_TagString: Untagged
@@ -158,3 +160,27 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &4412106648442860148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412106648995840028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c7e1eaa88c525d8961e8c4fdaa6c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4412106648442860149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412106648995840028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19f19fc25dcc4399dbe8b57804fd1261, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

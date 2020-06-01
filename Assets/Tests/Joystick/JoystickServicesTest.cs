@@ -10,19 +10,52 @@ namespace Tests
     {
         // A Test behaves as an ordinary method
         [Test]
-        public void JoystickServicesTestSimplePasses()
+        public void CanShowAtCorrectPosition()
         {
-            // Use the Assert class to test conditions
+            //Constrói a hierarquia esperada
+            GameObject joystick = new GameObject();
+            joystick.name = "joystick";
+            joystick.AddComponent<JoystickService>();
+            GameObject touchIndicator = new GameObject();
+            touchIndicator.name = "TouchIndicator";
+            touchIndicator.AddComponent<RectTransform>();
+            touchIndicator.GetComponent<RectTransform>().SetTop(10);
+            touchIndicator.GetComponent<RectTransform>().SetLeft(10);
+            touchIndicator.GetComponent<RectTransform>().SetRight(20);
+            touchIndicator.GetComponent<RectTransform>().SetBottom(20);
+            touchIndicator.AddComponent<ShowOrHideTouchPosition>();
+            touchIndicator.AddComponent<ChangeTouchIndicatorPosition>();
+            touchIndicator.transform.parent = joystick.transform;
+            //Muda
+            joystick.GetComponent<JoystickService>().ShowTouchPosition(new Vector2(30,30));
+            //Valida
+            Vector2 indicatorPos = touchIndicator.transform.position;
+            bool isEnabled = touchIndicator.GetComponent<Behaviour>().enabled;
+            Assert.AreEqual(indicatorPos, new Vector2(30, 30));
+            Assert.IsTrue(isEnabled);
         }
-
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator JoystickServicesTestWithEnumeratorPasses()
+        [Test]
+        public void CanHide()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
-            yield return null;
+            //Constrói a hierarquia esperada
+            GameObject joystick = new GameObject();
+            joystick.name = "joystick";
+            joystick.AddComponent<JoystickService>();
+            GameObject touchIndicator = new GameObject();
+            touchIndicator.name = "TouchIndicator";
+            touchIndicator.AddComponent<RectTransform>();
+            touchIndicator.GetComponent<RectTransform>().SetTop(10);
+            touchIndicator.GetComponent<RectTransform>().SetLeft(10);
+            touchIndicator.GetComponent<RectTransform>().SetRight(20);
+            touchIndicator.GetComponent<RectTransform>().SetBottom(20);
+            touchIndicator.AddComponent<ShowOrHideTouchPosition>();
+            touchIndicator.AddComponent<ChangeTouchIndicatorPosition>();
+            touchIndicator.transform.parent = joystick.transform;
+            //Muda
+            joystick.GetComponent<JoystickService>().HideTouchPosition();
+            //Valida
+            bool isEnabled = touchIndicator.GetComponent<Behaviour>().enabled;
+            Assert.IsFalse(isEnabled);
         }
     }
 }
