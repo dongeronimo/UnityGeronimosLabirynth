@@ -8,15 +8,16 @@ namespace Tests
 {
     public class JoystickServicesTest
     {
-        // A Test behaves as an ordinary method
-        [Test]
-        public void CanShowAtCorrectPosition()
+        private void BuildStructure(GameObject joystick, GameObject touchIndicator)
         {
-            //Constrói a hierarquia esperada
-            GameObject joystick = new GameObject();
             joystick.name = "joystick";
             joystick.AddComponent<JoystickService>();
-            GameObject touchIndicator = new GameObject();
+            joystick.AddComponent<RectTransform>();
+            joystick.GetComponent<RectTransform>().SetTop(0);
+            joystick.GetComponent<RectTransform>().SetLeft(0);
+            joystick.GetComponent<RectTransform>().SetRight(30);
+            joystick.GetComponent<RectTransform>().SetBottom(30);
+
             touchIndicator.name = "TouchIndicator";
             touchIndicator.AddComponent<RectTransform>();
             touchIndicator.GetComponent<RectTransform>().SetTop(10);
@@ -26,6 +27,14 @@ namespace Tests
             touchIndicator.AddComponent<ShowOrHideTouchPosition>();
             touchIndicator.AddComponent<ChangeTouchIndicatorPosition>();
             touchIndicator.transform.parent = joystick.transform;
+        }
+        // A Test behaves as an ordinary method
+        [Test]
+        public void CanShowAtCorrectPosition()
+        {
+            GameObject joystick = new GameObject();
+            GameObject touchIndicator = new GameObject();
+            BuildStructure(joystick, touchIndicator);
             //Muda
             joystick.GetComponent<JoystickService>().ShowTouchPosition(new Vector2(30,30));
             //Valida
@@ -39,23 +48,26 @@ namespace Tests
         {
             //Constrói a hierarquia esperada
             GameObject joystick = new GameObject();
-            joystick.name = "joystick";
-            joystick.AddComponent<JoystickService>();
             GameObject touchIndicator = new GameObject();
-            touchIndicator.name = "TouchIndicator";
-            touchIndicator.AddComponent<RectTransform>();
-            touchIndicator.GetComponent<RectTransform>().SetTop(10);
-            touchIndicator.GetComponent<RectTransform>().SetLeft(10);
-            touchIndicator.GetComponent<RectTransform>().SetRight(20);
-            touchIndicator.GetComponent<RectTransform>().SetBottom(20);
-            touchIndicator.AddComponent<ShowOrHideTouchPosition>();
-            touchIndicator.AddComponent<ChangeTouchIndicatorPosition>();
-            touchIndicator.transform.parent = joystick.transform;
+            BuildStructure(joystick, touchIndicator);
             //Muda
             joystick.GetComponent<JoystickService>().HideTouchPosition();
             //Valida
             bool isEnabled = touchIndicator.GetComponent<Behaviour>().enabled;
             Assert.IsFalse(isEnabled);
+        }
+        [Test]
+        public void IsMovementAxesCorrect()
+        {
+            GameObject joystick = new GameObject();
+            GameObject touchIndicator = new GameObject();
+            BuildStructure(joystick, touchIndicator);
+            joystick.GetComponent<JoystickService>().ShowTouchPosition(new Vector2(30, 30));
+            Vector2  axes = joystick.GetComponent<JoystickService>().CurrentMovementAxes;
+            var xEpsilon = Mathf.Abs(Mathf.Abs(axes.x) - Mathf.Abs(0.7071f));
+            var yEpsilon = Mathf.Abs(Mathf.Abs(axes.x) - Mathf.Abs(0.7071f));
+            Assert.Less(xEpsilon, 0.0001f);
+            Assert.Less(yEpsilon, 0.0001f);
         }
     }
 }
