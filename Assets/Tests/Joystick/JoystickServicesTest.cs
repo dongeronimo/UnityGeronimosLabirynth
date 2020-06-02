@@ -11,7 +11,7 @@ namespace Tests
         private void BuildStructure(GameObject joystick, GameObject touchIndicator)
         {
             joystick.name = "joystick";
-            joystick.AddComponent<JoystickService>();
+            joystick.AddComponent<JoystickServices>();
             joystick.AddComponent<RectTransform>();
             joystick.GetComponent<RectTransform>().SetTop(0);
             joystick.GetComponent<RectTransform>().SetLeft(0);
@@ -36,7 +36,7 @@ namespace Tests
             GameObject touchIndicator = new GameObject();
             BuildStructure(joystick, touchIndicator);
             //Muda
-            joystick.GetComponent<JoystickService>().ShowTouchPosition(new Vector2(30,30));
+            joystick.GetComponent<JoystickServices>().ShowTouchPosition(new Vector2(30,30));
             //Valida
             Vector2 indicatorPos = touchIndicator.transform.position;
             bool isEnabled = touchIndicator.GetComponent<Behaviour>().enabled;
@@ -51,7 +51,7 @@ namespace Tests
             GameObject touchIndicator = new GameObject();
             BuildStructure(joystick, touchIndicator);
             //Muda
-            joystick.GetComponent<JoystickService>().HideTouchPosition();
+            joystick.GetComponent<JoystickServices>().HideTouchPosition();
             //Valida
             bool isEnabled = touchIndicator.GetComponent<Behaviour>().enabled;
             Assert.IsFalse(isEnabled);
@@ -62,12 +62,13 @@ namespace Tests
             GameObject joystick = new GameObject();
             GameObject touchIndicator = new GameObject();
             BuildStructure(joystick, touchIndicator);
-            joystick.GetComponent<JoystickService>().ShowTouchPosition(new Vector2(30, 30));
-            Vector2  axes = joystick.GetComponent<JoystickService>().CurrentMovementAxes;
-            var xEpsilon = Mathf.Abs(Mathf.Abs(axes.x) - Mathf.Abs(0.7071f));
-            var yEpsilon = Mathf.Abs(Mathf.Abs(axes.x) - Mathf.Abs(0.7071f));
-            Assert.Less(xEpsilon, 0.0001f);
-            Assert.Less(yEpsilon, 0.0001f);
+            joystick.GetComponent<JoystickServices>().ShowTouchPosition(new Vector2(30, 30));
+            Vector2  axes = joystick.GetComponent<JoystickServices>().CurrentMovementAxes;
+            Debug.Log("Y = " + axes.y.ToString());
+            var xEpsilon = Mathf.Abs(Mathf.Abs(axes.x) - Mathf.Abs(-0.948f));
+            var yEpsilon = Mathf.Abs(Mathf.Abs(axes.y) - Mathf.Abs(-0.316f));
+            Assert.Less(xEpsilon, 0.01f);
+            Assert.Less(yEpsilon, 0.01f);
         }
     }
 }

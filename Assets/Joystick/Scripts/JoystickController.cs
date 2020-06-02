@@ -43,12 +43,11 @@ public class JoystickController : MonoBehaviour, IPointerDownHandler, IPointerUp
     {
         if(isPressed == true)
         {
-            GetComponentInChildren<ShowOrHideTouchPosition>().ShowTouchPosition();
-            GetComponentInChildren<ChangeTouchIndicatorPosition>().SetPosition(currentEventPosition);
+            GetComponent<JoystickServices>().ShowTouchPosition(currentEventPosition);
         }
         else
         {
-            GetComponentInChildren<ShowOrHideTouchPosition>().HideTouchPosition();
+            GetComponent<JoystickServices>().HideTouchPosition();
         }
     }
 }

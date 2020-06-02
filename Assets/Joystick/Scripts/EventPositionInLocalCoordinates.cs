@@ -12,6 +12,7 @@ public class EventPositionInLocalCoordinates
     public Vector2 Calculate(Vector2 rectTransformPositionInScreenCoordinates, Vector2 eventInScreenCoordinates)
     {
         Vector2 eventLocalCoordinates = eventInScreenCoordinates - rectTransformPositionInScreenCoordinates;
+
         return eventLocalCoordinates;
     }
 }

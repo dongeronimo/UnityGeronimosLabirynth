@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JoystickService : MonoBehaviour
+public class JoystickServices : MonoBehaviour
 {
     public Vector2 CurrentMovementAxes = new Vector2();
     private EventPositionInLocalCoordinates localPositionCalculator = new EventPositionInLocalCoordinates();
@@ -22,11 +22,20 @@ public class JoystickService : MonoBehaviour
     {
         GetComponentInChildren<ShowOrHideTouchPosition>().ShowTouchPosition();
         GetComponentInChildren<ChangeTouchIndicatorPosition>().SetPosition(positionInScreenCoordinates);
-
+        var p = GetComponent<RectTransform>().position;
+        Debug.Log("Joystick position = " + p);
+        Debug.Log("Event = " + positionInScreenCoordinates);
+        Vector2 localPosition = localPositionCalculator.Calculate(p, positionInScreenCoordinates);
+        Debug.Log("Local Coordinates = " + localPosition);
+        CurrentMovementAxes = movementAxesCalculator.Calculate(localPosition, GetComponent<RectTransform>().rect);
+        Debug.Log("Current Axes = " + CurrentMovementAxes);
+        /*
         Rect joystickRect = GetComponent<RectTransform>().rect;
-        Vector2 joystickScreenPosition = joystickRect.position;
+        Vector2 joystickScreenPosition = joystickRect;
+        Debug.Log("joystickScreenPosition " + joystickScreenPosition);
         Vector2 localPosition = localPositionCalculator.Calculate(joystickScreenPosition, positionInScreenCoordinates);
         CurrentMovementAxes = movementAxesCalculator.Calculate(localPosition, joystickRect);
+        */
 
     }
     public void HideTouchPosition()
