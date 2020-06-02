@@ -64,7 +64,6 @@ namespace Tests
             BuildStructure(joystick, touchIndicator);
             joystick.GetComponent<JoystickServices>().ShowTouchPosition(new Vector2(30, 30));
             Vector2  axes = joystick.GetComponent<JoystickServices>().CurrentMovementAxes;
-            Debug.Log("Y = " + axes.y.ToString());
             var xEpsilon = Mathf.Abs(Mathf.Abs(axes.x) - Mathf.Abs(-0.948f));
             var yEpsilon = Mathf.Abs(Mathf.Abs(axes.y) - Mathf.Abs(-0.316f));
             Assert.Less(xEpsilon, 0.01f);
