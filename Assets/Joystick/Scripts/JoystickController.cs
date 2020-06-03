@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class JoystickController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler,
+public class JoystickController : MonoBehaviour, 
+    IPointerDownHandler, IPointerUpHandler,
     IDragHandler, IEndDragHandler
 {
     private bool isPressed ;
