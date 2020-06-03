@@ -22,6 +22,7 @@ public class JoystickController : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("OnPointerDown");
         isPressed = true;
         currentEventPosition = eventData.position;
     }
@@ -41,6 +42,7 @@ public class JoystickController : MonoBehaviour, IPointerDownHandler, IPointerUp
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("isPressed = " + isPressed);
         if(isPressed == true)
         {
             GetComponent<JoystickServices>().ShowTouchPosition(currentEventPosition);

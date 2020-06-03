@@ -16,6 +16,5 @@ public class PlayerPOVController : MonoBehaviour
     {
         SceneCamera.position = this.transform.position;
         SceneCamera.LookAt(transform.parent.position);
-        Debug.Log(SceneCamera.forward);
     }
 }
