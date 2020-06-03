@@ -12,10 +12,44 @@ namespace Tests
         [UnityTest]
         public IEnumerator CameraPositionChangesIfParentChanges()
         {
-            throw new System.Exception("Not implemented");
+            //Creates the camera
+            GameObject camera = new GameObject();
+            //Creates the parent
+            GameObject parent = new GameObject();
+            parent.transform.position = new Vector3(0, 0, 0);
+            //Creates the POV 
+            GameObject playerPOV = new GameObject();
+            playerPOV.transform.position = new Vector3(0f, 1.59f, -3.82f);
+            playerPOV.transform.parent = parent.transform;
+            playerPOV.AddComponent<PlayerPOVController>();
+            playerPOV.GetComponent<PlayerPOVController>().SceneCamera = camera.transform;
+            //skip a frame to process, since the change happens inside Update method.
+            yield return null;
+            parent.transform.Translate(new Vector3(1, 1, 1));
+            yield return null;
+            var position = camera.transform.position;
+            var orientation = camera.transform.forward;
+            Assert.AreEqual(new Vector3(1, 1, 1) + new Vector3(0f, 1.59f, -3.82f), position);
+            var orientationXEpsilon = Mathf.Abs(Mathf.Abs(orientation.x) - Mathf.Abs(0));
+            var orientationYEpsilon = Mathf.Abs(Mathf.Abs(orientation.y) - Mathf.Abs(-0.384f));
+            var orientationZEpsilon = Mathf.Abs(Mathf.Abs(orientation.z) - Mathf.Abs(-0.923f));
+            Assert.Less(orientationXEpsilon, 0.001f);
+            Assert.Less(orientationYEpsilon, 0.001f);
+            Assert.Less(orientationZEpsilon, 0.001f);
+            /*
+            var cameraPosition = camera.transform.position;
+            var orientation = camera.transform.forward;
+            Assert.AreEqual(cameraPosition, playerPOV.transform.position);
+            var orientationXEpsilon = Mathf.Abs(Mathf.Abs(orientation.x) - Mathf.Abs(0));
+            var orientationYEpsilon = Mathf.Abs(Mathf.Abs(orientation.y) - Mathf.Abs(-0.384f));
+            var orientationZEpsilon = Mathf.Abs(Mathf.Abs(orientation.z) - Mathf.Abs(-0.923f));
+            Assert.Less(orientationXEpsilon, 0.001f);
+            Assert.Less(orientationYEpsilon, 0.001f);
+            Assert.Less(orientationZEpsilon, 0.001f);
+            */
         }
         [UnityTest]
-        public IEnumerator CameraPositionAndOrientationIsCorrectlySetInUpdate()
+        public IEnumerator CameraPositionAndOrientationAreCorrect()
         {
             //Creates the camera
             GameObject camera = new GameObject();
@@ -42,5 +76,6 @@ namespace Tests
             Assert.Less(orientationZEpsilon, 0.001f);
             yield return null;
         }
+
     }
 }
