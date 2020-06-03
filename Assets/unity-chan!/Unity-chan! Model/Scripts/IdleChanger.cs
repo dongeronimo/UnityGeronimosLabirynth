@@ -54,22 +54,24 @@ namespace UnityChan
 		
 			// "Next"フラグがtrueの時の処理
 			if (anim.GetBool ("Next")) {
+                ///DISABLED - Not being used
 				// 現在のステートをチェックし、ステート名が違っていたらブーリアンをfalseに戻す
-				currentState = anim.GetCurrentAnimatorStateInfo (0);
-				if (previousState.nameHash != currentState.nameHash) {
-					anim.SetBool ("Next", false);
-					previousState = currentState;				
-				}
+				//currentState = anim.GetCurrentAnimatorStateInfo (0);
+				//if (previousState.nameHash != currentState.nameHash) {
+				//	anim.SetBool ("Next", false);
+				//	previousState = currentState;				
+				//}
 			}
 		
 			// "Back"フラグがtrueの時の処理
 			if (anim.GetBool ("Back")) {
+                /*DISABLED - Not being used
 				// 現在のステートをチェックし、ステート名が違っていたらブーリアンをfalseに戻す
 				currentState = anim.GetCurrentAnimatorStateInfo (0);
 				if (previousState.nameHash != currentState.nameHash) {
 					anim.SetBool ("Back", false);
 					previousState = currentState;
-				}
+				}*/
 			}
 		}
 

@@ -91,7 +91,7 @@ namespace UnityChan
 			}
 		
 			if (Input.GetButtonDown ("Jump")) {	// スペースキーを入力したら
-
+                /* Disabled - not being used
 				//アニメーションのステートがLocomotionの最中のみジャンプできる
 				if (currentBaseState.nameHash == locoState) {
 					//ステート遷移中でなかったらジャンプできる
@@ -100,6 +100,7 @@ namespace UnityChan
 						anim.SetBool ("Jump", true);		// Animatorにジャンプに切り替えるフラグを送る
 					}
 				}
+                */
 			}
 		
 
@@ -113,6 +114,7 @@ namespace UnityChan
 			// 以下、Animatorの各ステート中での処理
 			// Locomotion中
 			// 現在のベースレイヤーがlocoStateの時
+            /* DISABLED - Not being used
 			if (currentBaseState.nameHash == locoState) {
 				//カーブでコライダ調整をしている時は、念のためにリセットする
 				if (useCurves) {
@@ -175,7 +177,7 @@ namespace UnityChan
 				if (!anim.IsInTransition (0)) {
 					anim.SetBool ("Rest", false);
 				}
-			}
+			}*/
 		}
 
 		void OnGUI ()
