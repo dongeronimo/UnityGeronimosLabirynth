@@ -8,7 +8,8 @@ namespace UnityChan
 	{
 		void NextLevel ()
 		{
-			Application.LoadLevel (Application.loadedLevel + 1);
+            //Disabled - not used
+			//Application.LoadLevel (Application.loadedLevel + 1);
 		}
 	}
 }
