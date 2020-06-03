@@ -8,7 +8,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEditor;
-
+#if UNITY_EDITOR
 namespace UnityChan
 {
 	public class CreateLocatorHere
@@ -40,3 +40,4 @@ namespace UnityChan
 		}
 	}
 }
+#endif
