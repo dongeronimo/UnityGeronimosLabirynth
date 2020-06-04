@@ -13,8 +13,7 @@ namespace Tests
         {
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
-            playerRoot.GetComponent<CardinalOrientation>().YAxis = 1.0f;
-            playerRoot.GetComponent<CardinalOrientation>().XAxis = 0.0f;
+            playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(1, 0, 0);
             yield return null;
             var orientation = playerRoot.transform.forward;
             Assert.AreEqual(orientation.x, 0);
@@ -25,8 +24,7 @@ namespace Tests
         {
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
-            playerRoot.GetComponent<CardinalOrientation>().YAxis = -1.0f;
-            playerRoot.GetComponent<CardinalOrientation>().XAxis = 0.0f;
+            playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(-1, 0, 0);
             yield return null;
             var orientation = playerRoot.transform.forward;
             Assert.AreEqual(orientation.x, 0);
@@ -37,8 +35,7 @@ namespace Tests
         {
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
-            playerRoot.GetComponent<CardinalOrientation>().YAxis = 0.0f;
-            playerRoot.GetComponent<CardinalOrientation>().XAxis = 1.0f;
+            playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(0, 0, 1);
             yield return null;
             var orientation = playerRoot.transform.forward;
             Assert.Less(Mathf.Abs(orientation.x - 1.0f), 0.001f);
@@ -49,8 +46,7 @@ namespace Tests
         {
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
-            playerRoot.GetComponent<CardinalOrientation>().YAxis = 0.0f;
-            playerRoot.GetComponent<CardinalOrientation>().XAxis = -1.0f;
+            playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(0, 0, -1);
             yield return null;
             var orientation = playerRoot.transform.forward;
             Assert.Less(Mathf.Abs(orientation.x - (-1.0f)), 0.001f);

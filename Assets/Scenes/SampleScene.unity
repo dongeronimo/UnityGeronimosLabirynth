@@ -827,8 +827,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e181c5b573662cd59618c10870e6dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XAxis: 0
-  YAxis: 0
+  currentOrientation: {x: 0, y: 0, z: 0}
+  finalOrientation: {x: 0, y: 0, z: 0}
+  speed: 1
+  startTime: 0
   joystickServices: {fileID: 572098278}
 --- !u!4 &902991494 stripped
 Transform:
