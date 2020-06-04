@@ -19,8 +19,8 @@ public class CardinalOrientation : MonoBehaviour
     void Update()
     {
         SetXAndYUsingJoystickServices();
-        Debug.Log("Final = " + finalOrientation);
         float angleBetweenCurrentAndFinalOrientations = Vector3.Angle(currentOrientation, finalOrientation);
+        Debug.Log("angle = " + angleBetweenCurrentAndFinalOrientations);
         //Debug.Log("Angle between vectors = " + angleBetweenCurrentAndFinalOrientations);
         //Vector3.Lerp()
     //    ChangeOrientationBasedOnXAndY();
@@ -39,9 +39,9 @@ public class CardinalOrientation : MonoBehaviour
     }
     private void ChangeOrientationBasedOnXAndY()
     {
-        var currentPosition = transform.position;
-        var positionToLookAt = currentPosition + currentOrientation;
-        transform.LookAt(positionToLookAt);
+        //var currentPosition = transform.position;
+        //var positionToLookAt = currentPosition + currentOrientation;
+        //transform.LookAt(positionToLookAt);
                
     }
 }
