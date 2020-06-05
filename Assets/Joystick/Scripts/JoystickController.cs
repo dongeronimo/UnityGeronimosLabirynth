@@ -7,7 +7,7 @@ public class JoystickController : MonoBehaviour,
     IPointerDownHandler, IPointerUpHandler,
     IDragHandler, IEndDragHandler
 {
-    private bool isPressed ;
+    public bool isPressed;
     private Vector2 currentEventPosition;
     public void OnDrag(PointerEventData eventData)
     {
