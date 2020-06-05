@@ -6,7 +6,7 @@ public class CardinalOrientation : MonoBehaviour
 {
     public Vector3 currentOrientation = new Vector3(0,0,1);
     public Vector3 finalOrientation;
-
+    public float rotationSpeed = 0.1f;
     public JoystickServices joystickServices;
 
     void Start()
@@ -18,7 +18,7 @@ public class CardinalOrientation : MonoBehaviour
     void Update()
     {
         SetXAndYUsingJoystickServices();
-        Vector3 interpolatedPosition = Vector3.Slerp(currentOrientation, finalOrientation, 0.1f);
+        Vector3 interpolatedPosition = Vector3.Slerp(currentOrientation, finalOrientation, rotationSpeed);
         //Debug.Log("current = " + currentOrientation + ", intermediate = " + interpolatedPosition + ", final = " + finalOrientation);
         currentOrientation = interpolatedPosition;
         ChangeOrientationBasedOnXAndY();
