@@ -11,9 +11,11 @@ namespace Tests
         [UnityTest]
         public IEnumerator CanFaceNorth()
         {
+            //Broken test - Dont know how to test the interpolation
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
             playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(1, 0, 0);
+            playerRoot.GetComponent<CardinalOrientation>().finalOrientation = new Vector3(1, 0, 0);
             yield return null;
             var orientation = playerRoot.transform.forward;
             Assert.AreEqual(orientation.x, 0);
@@ -22,6 +24,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator CanFaceSouth()
         {
+            //Broken test - Dont know how to test the interpolation
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
             playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(-1, 0, 0);
@@ -33,6 +36,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator CanFaceEast()
         {
+            //Broken test - Dont know how to test the interpolation
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
             playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(0, 0, 1);
@@ -44,6 +48,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator CanFaceWest()
         {
+            //Broken test - Dont know how to test the interpolation
             GameObject playerRoot = new GameObject();
             playerRoot.AddComponent<CardinalOrientation>();
             playerRoot.GetComponent<CardinalOrientation>().currentOrientation = new Vector3(0, 0, -1);
