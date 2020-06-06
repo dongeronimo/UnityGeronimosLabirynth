@@ -23,7 +23,6 @@ public class JoystickController : MonoBehaviour,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
         isPressed = true;
         currentEventPosition = eventData.position;
     }

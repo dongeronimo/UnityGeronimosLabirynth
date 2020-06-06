@@ -16,7 +16,9 @@ public class PlayerForwardMovement : MonoBehaviour
     {
         if (joystickController.isPressed)
         {
-            transform.position = transform.position + transform.forward * Time.deltaTime;
+            var characterController = GetComponent<CharacterController>();
+            characterController.SimpleMove(transform.forward);
+            //transform.position = transform.position + transform.forward * Time.deltaTime;
         }
         
     }
