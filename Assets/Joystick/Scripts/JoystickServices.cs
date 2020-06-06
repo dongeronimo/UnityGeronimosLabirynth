@@ -1,12 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class JoystickServices : MonoBehaviour
 {
     public Vector2 CurrentMovementAxes = new Vector2();
+    public bool CharacterIsRunning;
     private EventPositionInLocalCoordinates localPositionCalculator = new EventPositionInLocalCoordinates();
     private JoystickMovementAxes movementAxesCalculator = new JoystickMovementAxes();
+
+    internal void SetRunning(bool isRunning)
+    {
+        CharacterIsRunning = isRunning;
+    }
 
     public void ShowTouchPosition(Vector2 positionInScreenCoordinates)
     {

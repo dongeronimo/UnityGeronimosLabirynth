@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerForwardMovement : MonoBehaviour
 {
+    public float RunSpeedMultiplier;
+    public float WalkSpeedMultiplier;
     public JoystickController joystickController;
     private Animator animator;
     // Start is called before the first frame update
@@ -17,10 +19,11 @@ public class PlayerForwardMovement : MonoBehaviour
     {
         if (joystickController.isPressed)
         {
+            var speedMultiplier = joystickController.GetJoystickService().CharacterIsRunning?RunSpeedMultiplier: WalkSpeedMultiplier;
+            var forwardMultipliedBySpeed = transform.forward * speedMultiplier;
             var characterController = GetComponent<CharacterController>();
-            characterController.SimpleMove(transform.forward);
-            animator.SetFloat("ForwardSpeed", transform.forward.magnitude);
-            //transform.position = transform.position + transform.forward * Time.deltaTime;
+            characterController.SimpleMove(forwardMultipliedBySpeed);
+            animator.SetFloat("ForwardSpeed", forwardMultipliedBySpeed.magnitude);
         }
         else
         {

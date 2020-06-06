@@ -38,7 +38,10 @@ public class JoystickController : MonoBehaviour,
     {
         isPressed = false;
     }
-
+    public JoystickServices GetJoystickService()
+    {
+        return GetComponent<JoystickServices>();
+    }
     // Update is called once per frame
     void Update()
     {
