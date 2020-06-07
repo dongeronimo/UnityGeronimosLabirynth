@@ -9,6 +9,11 @@ public class JoystickServices : MonoBehaviour
     public bool CharacterIsRunning;
     private EventPositionInLocalCoordinates localPositionCalculator = new EventPositionInLocalCoordinates();
     private JoystickMovementAxes movementAxesCalculator = new JoystickMovementAxes();
+    public bool IsNotJumping = true;
+    internal void BeginJump()
+    {
+        IsNotJumping = false;
+    }
 
     internal void SetRunning(bool isRunning)
     {
