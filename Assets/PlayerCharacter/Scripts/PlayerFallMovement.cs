@@ -15,15 +15,18 @@ public class PlayerFallMovement : MonoBehaviour
 
     void Update()
     {
-        animator.SetFloat("FallSpeed", lastFallVector.y);
         if (characterController.isGrounded == false)
         {
+            //Changes the position
             lastFallVector = Vector3.Slerp(lastFallVector, Vector3.down, 0.1f);
             characterController.SimpleMove(lastFallVector);
+            //Changes the animation
+            animator.SetLayerWeight(animator.GetLayerIndex("Fall"), 0.5f);
         }
         else
         {
             lastFallVector = transform.forward;
+            animator.SetLayerWeight(animator.GetLayerIndex("Fall"), 0.0f);
         }
     }
 }
