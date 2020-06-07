@@ -8,10 +8,12 @@ public class PlayerForwardMovement : MonoBehaviour
     public float WalkSpeedMultiplier;
     public JoystickController joystickController;
     private Animator animator;
+    private CharacterController characterController;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        characterController = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -19,9 +21,8 @@ public class PlayerForwardMovement : MonoBehaviour
     {
         if (joystickController.isPressed)
         {
-            var speedMultiplier = joystickController.GetJoystickService().CharacterIsRunning?RunSpeedMultiplier: WalkSpeedMultiplier;
+            var speedMultiplier = joystickController.GetJoystickService().CharacterIsRunning ? RunSpeedMultiplier : WalkSpeedMultiplier;
             var forwardMultipliedBySpeed = transform.forward * speedMultiplier;
-            var characterController = GetComponent<CharacterController>();
             characterController.SimpleMove(forwardMultipliedBySpeed);
             animator.SetFloat("ForwardSpeed", forwardMultipliedBySpeed.magnitude);
         }
@@ -29,6 +30,5 @@ public class PlayerForwardMovement : MonoBehaviour
         {
             animator.SetFloat("ForwardSpeed", 0.0f);
         }
-        
     }
 }
