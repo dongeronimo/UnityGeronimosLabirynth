@@ -1,20 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WebSocketSharp;
 
 public class ConnectionToServer : MonoBehaviour
 {
+    private WebSocket ws;
     // Start is called before the first frame update
     void Start()
     {
-        //using (var ws = new WebSocket("ws://dragonsnest.far/Laputa"))
-        //{
-        //    ws.OnMessage += (sender, e) =>
-        //        Console.WriteLine("Laputa says: " + e.Data);
-        //    ws.Connect();
-        //    ws.Send("BALUS");
-        //    Console.ReadKey(true);
-        //}
+        ws = new WebSocket("ws://localhost:8080/helloSockets");
+        ws.OnMessage+= (sender, e) =>
+        {
+            Debug.Log(e.Data);
+        };
+        ws.Connect();
+        ws.Send("hello");
     }
 
     // Update is called once per frame
@@ -22,4 +23,10 @@ public class ConnectionToServer : MonoBehaviour
     {
         
     }
+
+    private void OnDestroy()
+    {
+        ws.Close();
+    }
+
 }
