@@ -43,8 +43,7 @@ public class HelloSocketsHandler extends TextWebSocketHandler {
             client.sendMessage(new TextMessage("Unknown command"));
         }
         for (Map.Entry<String, WebSocketSession> entry:clients.entrySet()){
-            String key = entry.getKey();
-            String msg = "client "+key+" sent message to server";
+            String msg = session.getId()+" sent message to server";
             entry.getValue().sendMessage(new TextMessage(msg));
         }
     }
