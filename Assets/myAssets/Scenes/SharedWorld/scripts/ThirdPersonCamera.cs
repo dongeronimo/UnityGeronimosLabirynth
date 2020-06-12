@@ -5,15 +5,15 @@ using UnityEngine;
 public class ThirdPersonCamera : MonoBehaviour
 {
     public Transform PlayerCamera;
+    public Transform Target;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         PlayerCamera.position = transform.position;
-        PlayerCamera.LookAt(GetComponentInParent<Transform>().position);
+        PlayerCamera.LookAt(Target);
     }
 }
