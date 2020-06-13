@@ -8,9 +8,9 @@
 
 ### DOING
 * Shared World.
- 1. Created the scene - DONE
- 2. Created the walking player cube - DONE
- 3. Connect one player to the server.
+ 1. Created the scene. - DONE
+ 2. Created the walking player cube. - DONE
+ 3. Connect one player to the server. 
  4. Connect two players to the server.
  5. On connect players be notified that another player entered
  6. On disconnect players be notified that another player left.
@@ -22,3 +22,11 @@
 ### DONE
 * Websocket's Hello world
 * Unity connect to server, send data and receive data
+
+
+# First Network System
+## Parts
+ * The Client Network Manager
+ 1. It's responsability is to connect to the server, keep the connection alive, fetch the world state from the server and send the client state to the server.
+ * The Server Websocket
+ 1. It receives the client states and broadcast the unified world state to all clients.
