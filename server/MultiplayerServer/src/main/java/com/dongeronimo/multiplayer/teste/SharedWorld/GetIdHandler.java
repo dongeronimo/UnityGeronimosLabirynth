@@ -24,7 +24,7 @@ public class GetIdHandler {
         elements.put("type", "getId");
         elements.put("id", clientId);
         ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(objectMapper);
+        String json = objectMapper.writeValueAsString(elements);
         return json;
     }
 

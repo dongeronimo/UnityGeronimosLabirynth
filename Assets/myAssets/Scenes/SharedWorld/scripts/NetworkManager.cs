@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 public class NetworkManager : MonoBehaviour
 {
     public string ServerUrl;
+    public string WebsocketClientId;
     private WebSocket websocket;
     private bool GotIdentity = false;
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class NetworkManager : MonoBehaviour
         {
             Dictionary<string, string> responseDict = ResponseDataToDict(e.Data);
             ValidateHasTypeElseThrowError(responseDict);
+            HandleGetIdResponse(responseDict);
             
         };
         websocket.Connect();
@@ -33,6 +35,15 @@ public class NetworkManager : MonoBehaviour
         if (responseDict.ContainsKey("type") == false)
         {
             throw new System.Exception("Invalid response format: no 'type' in json");
+        }
+    }
+
+    private void HandleGetIdResponse(Dictionary<string, string> responseDict)
+    {
+        if (responseDict["type"] == "getId")
+        {
+            WebsocketClientId = responseDict["id"];
+            GotIdentity = true;
         }
     }
     // Update is called once per frame
