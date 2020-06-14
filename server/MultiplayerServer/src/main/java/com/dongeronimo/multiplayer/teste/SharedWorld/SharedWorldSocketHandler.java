@@ -1,8 +1,12 @@
 package com.dongeronimo.multiplayer.teste.SharedWorld;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -10,36 +14,23 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Component
 public class SharedWorldSocketHandler extends TextWebSocketHandler {
-    static Map<String, WebSocketSession> clients;
+    @Autowired
+    private ClientManager clientManager;
+    @Autowired
+    private GetIdHandler getIdHandler;
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        createClientTableIfNeeeded();
-        insertNewClient(session);
+        clientManager.insertNewClient(session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        removeClient(session.getId());
+        clientManager.removeClient(session.getId());
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        WebSocketSession clientThatSentMsg = getClient(session.getId());
-
-    }
-
-    private void createClientTableIfNeeeded(){
-        if(clients == null){
-            clients = new HashMap<>();
-        }
-    }
-    private void insertNewClient(WebSocketSession session){
-        clients.put(session.getId(), session);
-    }
-    private void removeClient(String clientKey){
-        clients.remove(clientKey);
-    }
-    private WebSocketSession getClient(String key){
-        return clients.get(key);
+        WebSocketSession clientThatSentMsg = clientManager.getClient(session.getId());
+        getIdHandler.dealWithRequestId(clientThatSentMsg, message);
     }
 }
