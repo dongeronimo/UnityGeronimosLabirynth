@@ -1,9 +1,11 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 
 namespace UnityStandardAssets.Water
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(PlanarReflection))]
     public class PlanarReflectionEditor : Editor
     {
@@ -62,4 +64,5 @@ namespace UnityStandardAssets.Water
         }
 
     }
+#endif
 }
