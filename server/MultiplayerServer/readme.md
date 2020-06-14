@@ -10,7 +10,7 @@
 * Shared World.
  1. Created the scene. - DONE
  2. Created the walking player cube. - DONE
- 3. Connect one player to the server. 
+ 3. Connect one player to the server. - DONE
  4. Connect two players to the server.
  5. On connect players be notified that another player entered
  6. On disconnect players be notified that another player left.

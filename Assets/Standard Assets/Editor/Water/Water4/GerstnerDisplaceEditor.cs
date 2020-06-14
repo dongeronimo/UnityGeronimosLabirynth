@@ -1,10 +1,11 @@
 using UnityEngine;
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
-
-
+#endif
 namespace UnityStandardAssets.Water
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(GerstnerDisplace))]
     public class GerstnerDisplaceEditor : Editor
     {
@@ -105,4 +106,5 @@ namespace UnityStandardAssets.Water
             serObj.ApplyModifiedProperties();
         }
     }
+#endif
 }
