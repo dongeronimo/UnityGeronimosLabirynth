@@ -1,4 +1,4 @@
-package com.dongeronimo.multiplayer.teste.SharedWorld;
+package com.dongeronimo.multiplayer.teste.SharedWorld.infra;
 
 import java.util.HashMap;
 import java.util.Map;

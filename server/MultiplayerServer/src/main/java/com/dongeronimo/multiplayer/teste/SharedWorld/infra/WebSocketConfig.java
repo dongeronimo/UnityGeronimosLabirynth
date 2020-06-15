@@ -1,6 +1,7 @@
-package com.dongeronimo.multiplayer.teste;
+package com.dongeronimo.multiplayer.teste.SharedWorld.infra;
 
-import com.dongeronimo.multiplayer.teste.SharedWorld.SharedWorldSocketHandler;
+import com.dongeronimo.multiplayer.teste.HelloSocketsHandler;
+import com.dongeronimo.multiplayer.teste.SharedWorld.controller.SharedWorldSocketHandler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

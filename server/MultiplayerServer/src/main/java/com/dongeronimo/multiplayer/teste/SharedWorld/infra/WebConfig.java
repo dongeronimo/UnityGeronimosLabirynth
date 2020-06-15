@@ -1,4 +1,4 @@
-package com.dongeronimo.multiplayer.teste;
+package com.dongeronimo.multiplayer.teste.SharedWorld.infra;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

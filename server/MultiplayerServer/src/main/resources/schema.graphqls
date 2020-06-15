@@ -1,0 +1,15 @@
+
+type GameObject {
+    id: String!
+    positionX: Float!
+    positionY: Float!
+    positionZ: Float!
+}
+
+type Query {
+
+}
+
+type Mutation {
+    
+}

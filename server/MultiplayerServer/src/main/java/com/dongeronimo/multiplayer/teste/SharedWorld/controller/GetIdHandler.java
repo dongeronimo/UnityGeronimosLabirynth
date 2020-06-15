@@ -1,4 +1,4 @@
-package com.dongeronimo.multiplayer.teste.SharedWorld;
+package com.dongeronimo.multiplayer.teste.SharedWorld.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
