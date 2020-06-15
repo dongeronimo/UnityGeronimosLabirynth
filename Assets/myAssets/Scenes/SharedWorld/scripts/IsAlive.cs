@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class IsAlive : MonoBehaviour
 {
     public NetworkManager networkManager;
@@ -14,6 +14,6 @@ public class IsAlive : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GetComponent<Text>().text = networkManager.isAlive ? "alive=true" : "alive= false";
     }
 }

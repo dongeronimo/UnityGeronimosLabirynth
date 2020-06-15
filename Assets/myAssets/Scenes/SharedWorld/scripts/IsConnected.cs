@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class IsConnected : MonoBehaviour
 {
     public NetworkManager networkManager;
@@ -14,6 +14,6 @@ public class IsConnected : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GetComponent<Text>().text = networkManager.isConnected ? "Conn= true" : "Conn= false";
     }
 }
