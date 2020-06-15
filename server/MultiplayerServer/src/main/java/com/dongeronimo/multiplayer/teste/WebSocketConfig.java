@@ -18,7 +18,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(helloSocketsHandler, "/helloSockets");
-        registry.addHandler(sharedWorldHandler, "/shared_world");
+        registry.addHandler(sharedWorldHandler, "/shared_world").setAllowedOrigins("*");
     }
     
 }
