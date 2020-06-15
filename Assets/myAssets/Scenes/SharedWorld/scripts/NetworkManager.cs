@@ -8,25 +8,28 @@ public class NetworkManager : MonoBehaviour
 {
     public string ServerUrl;
     public string WebsocketClientId;
-    //private WebSocket websocket;
+    private WebSocket websocket;
     public bool isAlive = false;
     public bool isConnected = false;
     private GetIdHandler getIdHandler = new GetIdHandler();
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
-        //websocket = new WebSocket(ServerUrl);
-        //websocket.OnMessage += (sender, e) =>
-        //{
-        //    Dictionary<string, string> responseDict = ResponseDataToDict(e.Data);
-        //    ValidateHasTypeElseThrowError(responseDict);
-        //    getIdHandler.HandleGetIdResponse(responseDict);
-        //    if (getIdHandler.GotIdentity == true)
-        //    {
-        //        WebsocketClientId = getIdHandler.WebsocketClientId;
-        //    } 
-        //};
-        //websocket.Connect();
+        websocket = new WebSocket(ServerUrl);
+        websocket.OnMessage += Websocket_OnMessage;
+        await websocket.Connect();
+    }
+
+    private void Websocket_OnMessage(byte[] data)
+    {
+        string jsonString = System.Text.Encoding.Default.GetString(data);
+        Dictionary<string, string> responseDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
+        ValidateHasTypeElseThrowError(responseDict);
+        getIdHandler.HandleGetIdResponse(responseDict);
+        if (getIdHandler.GotIdentity == true)
+        {
+            WebsocketClientId = getIdHandler.WebsocketClientId;
+        }
     }
 
     private Dictionary<string, string> ResponseDataToDict(string responseData)
@@ -47,9 +50,15 @@ public class NetworkManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //isAlive = websocket.IsAlive;
-        //isConnected = websocket.IsConnected;
-        //getIdHandler.RequestIdentity(websocket);
+        if(websocket.State == WebSocketState.Open)
+        {
+            isConnected = true;   
+            getIdHandler.RequestIdentity(websocket);
+        }
+        else
+        {
+            isConnected = false;
+        }
     }
 }
 
@@ -60,14 +69,14 @@ class GetIdHandler
     public bool GotIdentity = false;
     public string WebsocketClientId = "";
 
-    //public void RequestIdentity(WebSocket socket)
-    //{
-    //    if(!IsRequesting && !GotIdentity)
-    //    {
-    //        socket.Send(GET_ID);
-    //        IsRequesting = true;
-    //    }
-    //}
+    public async void RequestIdentity(WebSocket socket)
+    {
+        if (!IsRequesting && !GotIdentity)
+        {
+            await socket.SendText(GET_ID);
+            IsRequesting = true;
+        }
+    }
     public void HandleGetIdResponse(Dictionary<string, string> responseDict)
     {
         if (responseDict["type"] == "getId")
