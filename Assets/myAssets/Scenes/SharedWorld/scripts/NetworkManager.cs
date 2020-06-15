@@ -9,7 +9,9 @@ public class NetworkManager : MonoBehaviour
     public string ServerUrl;
     public string WebsocketClientId;
     private WebSocket websocket;
-    private bool GotIdentity = false;
+    public bool isAlive = false;
+    public bool isConnected = false;
+    private GetIdHandler getIdHandler = new GetIdHandler();
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +20,11 @@ public class NetworkManager : MonoBehaviour
         {
             Dictionary<string, string> responseDict = ResponseDataToDict(e.Data);
             ValidateHasTypeElseThrowError(responseDict);
-            HandleGetIdResponse(responseDict);
-            
+            getIdHandler.HandleGetIdResponse(responseDict);
+            if (getIdHandler.GotIdentity == true)
+            {
+                WebsocketClientId = getIdHandler.WebsocketClientId;
+            } 
         };
         websocket.Connect();
     }
@@ -38,28 +43,38 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    private void HandleGetIdResponse(Dictionary<string, string> responseDict)
+    
+    // Update is called once per frame
+    void Update()
+    {
+        isAlive = websocket.IsAlive;
+        isConnected = websocket.IsConnected;
+        getIdHandler.RequestIdentity(websocket);
+    }
+}
+
+class GetIdHandler
+{
+    public static readonly string GET_ID = "getId";
+    public bool IsRequesting = false;
+    public bool GotIdentity = false;
+    public string WebsocketClientId = "";
+
+    public void RequestIdentity(WebSocket socket)
+    {
+        if(!IsRequesting && !GotIdentity)
+        {
+            socket.Send(GET_ID);
+            IsRequesting = true;
+        }
+    }
+    public void HandleGetIdResponse(Dictionary<string, string> responseDict)
     {
         if (responseDict["type"] == "getId")
         {
             WebsocketClientId = responseDict["id"];
             GotIdentity = true;
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (websocket.IsAlive)
-        {
-
-        }
-        if(websocket.IsConnected)
-        {
-
-        }
-        if(GotIdentity == false)
-        {
-            websocket.Send("getId");
+            IsRequesting = false;
         }
     }
 }
