@@ -23,7 +23,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 #if !UNITY_EDITOR
 	void OnEnable()
 	{
-		CheckEnableControlRig();
+		//CheckEnableControlRig();
 	}
 #else
         public int callbackOrder
