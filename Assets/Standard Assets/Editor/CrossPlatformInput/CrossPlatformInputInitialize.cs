@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace UnityStandardAssets.CrossPlatformInput.Inspector
 {
+#if UNITY_EDITOR
     [InitializeOnLoad]
     public class CrossPlatformInitialize
     {
@@ -130,4 +133,5 @@ namespace UnityStandardAssets.CrossPlatformInput.Inspector
             return new List<string>(PlayerSettings.GetScriptingDefineSymbolsForGroup(group).Split(';'));
         }
     }
+#endif
 }

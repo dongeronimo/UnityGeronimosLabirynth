@@ -49,6 +49,14 @@ public class NetworkManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (websocket.IsAlive)
+        {
+
+        }
+        if(websocket.IsConnected)
+        {
+
+        }
         if(GotIdentity == false)
         {
             websocket.Send("getId");

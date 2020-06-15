@@ -1,6 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
-
+#endif
 class WaterEditorUtility
 {
 	// helper functions to retrieve & set material values
@@ -42,7 +43,7 @@ class WaterEditorUtility
 		}
 		return null;
 	}
-	
+#if UNITY_EDITOR
 	public static void CurveGui (System.String name, SerializedObject serObj, Color color)
 	{
 		AnimationCurve curve = new AnimationCurve(new Keyframe(0, 0.0f, 1.0f, 1.0f), new Keyframe(1, 1.0f, 1.0f, 1.0f));
@@ -53,6 +54,7 @@ class WaterEditorUtility
 			//((WaterBase)serObj.targetObject).gameObject.SendMessage ("AnimationCurveChanged", SendMessageOptions.DontRequireReceiver);
 	   //}
 	}
+#endif
 	/*
 	public static void AnimationCurveChanged(Material sharedMaterial, AnimationCurve fresnelCurve)
 	{
