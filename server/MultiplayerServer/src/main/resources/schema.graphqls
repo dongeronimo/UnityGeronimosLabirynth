@@ -3,6 +3,15 @@ type Greeting {
     message: String!
 }
 
+type GameObject {
+    id: String!
+    positionX : Float!
+    positionY : Float!
+    positionZ : Float!
+    parent: GameObject
+    children: [GameObject]
+}
+
 type Query {
     getGreeting(id: ID!):Greeting
 }

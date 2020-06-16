@@ -1,4 +1,7 @@
 package com.dongeronimo.multiplayer.teste.SharedWorld.model;
+
+import java.util.List;
+
 /**
  * First attempt at representing a game object in the server.
  */
@@ -7,9 +10,27 @@ public class GameObject {
     private Float positionX;
     private Float positionY;
     private Float positionZ;
+    private GameObject parent;
+    private List<GameObject> children;
 
     public Float getPositionZ() {
         return positionZ;
+    }
+
+    public GameObject getParent() {
+        return parent;
+    }
+
+    public void setParent(GameObject parent) {
+        this.parent = parent;
+    }
+
+    public List<GameObject> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<GameObject> children) {
+        this.children = children;
     }
 
     public String getId() {
