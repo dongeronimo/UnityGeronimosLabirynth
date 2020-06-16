@@ -9,13 +9,15 @@ type GameObject {
     positionY : Float!
     positionZ : Float!
     parent: GameObject
-    children: [GameObject]
+    children: [GameObject]!
 }
 
 type Query {
     getGreeting(id: ID!):Greeting
+    getGameObjectById(id: String!):GameObject
 }
 
 type Mutation {
     newGreeting(message:String!):Greeting!
+    newGameObject(positionX:Float!, positionY:Float!, positionZ: Float!):GameObject!
 }
