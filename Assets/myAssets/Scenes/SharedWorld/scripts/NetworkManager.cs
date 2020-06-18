@@ -87,7 +87,7 @@ class GetWorldHandler
         currentStatusRequestData.Add("date", CurrentDateUtility.GetCurrentDate());
         await websocket.SendText(JsonConvert.SerializeObject(currentStatusRequestData));
     }
-    public void HandleResponse(Dictionary<string, string> responseDict)
+    public List<RemoteGameObject> HandleResponse(Dictionary<string, string> responseDict)
     {
         if (responseDict["type"] == "worldRequest")
         {
@@ -95,13 +95,18 @@ class GetWorldHandler
             try
             {
                 var remoteGameObjects = JsonConvert.DeserializeObject<List<RemoteGameObject>>(responseDict["gameObjects"]);
-                Debug.Log(remoteGameObjects.Count);
+                return remoteGameObjects;
+
             }
             catch(Exception e)
             {
                 Debug.LogError(e.Message);
+                return new List<RemoteGameObject>();
             }
-            isRequesting = false;
+            finally
+            {
+                isRequesting = false;
+            }
         }
     }
 }
