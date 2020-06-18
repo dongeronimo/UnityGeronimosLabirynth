@@ -1,9 +1,12 @@
 package com.dongeronimo.multiplayer.teste.SharedWorld.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.dongeronimo.multiplayer.teste.SharedWorld.infra.ClientManager;
+import com.dongeronimo.multiplayer.teste.SharedWorld.model.GameObject;
+import com.dongeronimo.multiplayer.teste.SharedWorld.service.GameObjectService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
@@ -21,6 +24,9 @@ public class SharedWorldSocketHandler extends TextWebSocketHandler {
     private ClientManager clientManager;
     @Autowired
     private GetIdHandler getIdHandler;
+
+    @Autowired
+    private GameObjectService gameObjectService;
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         clientManager.insertNewClient(session);
@@ -41,6 +47,15 @@ public class SharedWorldSocketHandler extends TextWebSocketHandler {
         String type = requestData.get("type");
         if(type.equals("idRequest")){
             getIdHandler.dealWithRequestId(clientThatSentMsg);
+        }
+        if(type.equals("worldRequest")){
+            //TODO: Deal with request by sending the current world to the player
+            List<GameObject> gameObjects = gameObjectService.findAll();
+            String gameObjectList = new ObjectMapper().writeValueAsString(gameObjects);
+            Map<String, String> response = new HashMap<>();
+            response.put("type", "worldRequest");
+            response.put("gameObjects", gameObjectList);
+            clientThatSentMsg.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(response)));
         }
         logger.info("Client "+session.getId()+" sent "+message.getPayload());
     }

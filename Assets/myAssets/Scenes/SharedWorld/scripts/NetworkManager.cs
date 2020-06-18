@@ -91,6 +91,7 @@ class GetWorldHandler
     {
         if (responseDict["type"] == "worldRequest")
         {
+            Debug.Log("Number of items: " + responseDict.Count);
             //TODO: Lida com o retorno do mundo
             isRequesting = false;
         }

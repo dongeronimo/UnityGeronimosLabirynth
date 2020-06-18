@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * First attempt at representing a game object in the server.
  */
+
 public class GameObject {
     private String id;
     private Float positionX;

@@ -1,8 +1,10 @@
 package com.dongeronimo.multiplayer.teste.SharedWorld.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.dongeronimo.multiplayer.teste.SharedWorld.model.GameObject;
 
@@ -34,4 +36,10 @@ public class GameObjectService {
             gameObjectRepository = new HashMap<>();
         }
     }
+
+	public List<GameObject> findAll() {
+        initRepositoryIfNull();
+        List<GameObject> lst = gameObjectRepository.keySet().stream().map(k->gameObjectRepository.get(k)).collect(Collectors.toList());
+        return lst;
+	}
 }
