@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c23de29867cf424dbba9c0289a5e985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remoteObjectPrefab: {fileID: 8856838473122151488}
   ServerUrl: ws://localhost:8080/shared_world
   WebsocketClientId: 
   isAlive: 0
@@ -981,3 +982,78 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &8856838473122151487
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00056648254
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.81548554
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.11107959
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4576854419722448187, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4611846848347622956, guid: be300cad8a96bff1d874953d66a8d42d,
+        type: 3}
+      propertyPath: m_Name
+      value: Sphere
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: be300cad8a96bff1d874953d66a8d42d, type: 3}
+--- !u!1 &8856838473122151488 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4611846848347622956, guid: be300cad8a96bff1d874953d66a8d42d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8856838473122151487}
+  m_PrefabAsset: {fileID: 0}

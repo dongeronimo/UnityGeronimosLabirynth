@@ -29,14 +29,14 @@ public class HelloSocketsHandler extends TextWebSocketHandler {
     }
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception{
-        var sessionId = session.getId();
-        var client = clients.get(sessionId);
+        String sessionId = session.getId();
+        WebSocketSession client = clients.get(sessionId);
 
         String clientMessage = message.getPayload();
         if(clientMessage.startsWith("hello")){
             client.sendMessage(new TextMessage("Hello there"));
         }else if(clientMessage.startsWith("time")){
-            var currentTime = LocalTime.now();
+            LocalTime currentTime = LocalTime.now();
             client.sendMessage(new TextMessage(currentTime.toString()));
         }
         else{

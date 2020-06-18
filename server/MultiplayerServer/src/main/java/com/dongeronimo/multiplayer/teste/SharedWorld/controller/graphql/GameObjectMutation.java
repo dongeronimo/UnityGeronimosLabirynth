@@ -22,6 +22,6 @@ public class GameObjectMutation implements GraphQLMutationResolver {
     private GameObjectService gameObjectService;
     //newGameObject(positionX:Float!, positionY:Float!, positionZ: Float!):GameObject!
     public GameObject newGameObject(float positionX, float positionY, float positionZ){
-        return gameObjectService.createNew(positionX, positionX, positionZ);
+        return gameObjectService.createNew(positionX, positionY, positionZ);
     }
 }
