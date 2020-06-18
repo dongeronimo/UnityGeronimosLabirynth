@@ -29,10 +29,10 @@ public class NetworkManager : MonoBehaviour
 
     private void Websocket_OnMessage(byte[] data)
     {
-        string jsonString = System.Text.Encoding.Default.GetString(data);
-        Dictionary<string, string> responseDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
-        ValidateHasTypeElseThrowError(responseDict);
+        Dictionary<string, string> responseDict = new ResponseDataToDictUtility().ResponseDataToDict(data);
+        new HasTypeValidator().Validate(responseDict);
         getIdHandler.HandleResponse(responseDict);
+        //TODO: Refatorar isso aqui.
         if (responseDict["type"] == "worldRequest")
         {
             //Pega o mundo no servidor
@@ -81,19 +81,6 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    private Dictionary<string, string> ResponseDataToDict(string responseData)
-    {
-        Dictionary<string, string> responseDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseData);
-        return responseDict;
-    }
-
-    private void ValidateHasTypeElseThrowError(Dictionary<string, string> responseDict)
-    {
-        if (responseDict.ContainsKey("type") == false)
-        {
-            throw new System.Exception("Invalid response format: no 'type' in json");
-        }
-    }
 
     private void Update()
     {
@@ -109,103 +96,8 @@ public class NetworkManager : MonoBehaviour
     }
 }
 
-class GetWorldHandler
-{
-    private bool isRequesting = false;
-    public bool CanRequest(WebSocket websocket, string WebsocketClientId)
-    {
-        if(websocket.State == WebSocketState.Open && WebsocketClientId != null && WebsocketClientId.Length > 0 && isRequesting == false)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public async void DoRequest(WebSocket websocket, string WebsocketClientId)
-    {
-        isRequesting = true;
-        Dictionary<string, string> currentStatusRequestData = new Dictionary<string, string>();
-        currentStatusRequestData.Add("type", "worldRequest");
-        currentStatusRequestData.Add("client", WebsocketClientId);
-        currentStatusRequestData.Add("date", CurrentDateUtility.GetCurrentDate());
-        await websocket.SendText(JsonConvert.SerializeObject(currentStatusRequestData));
-    }
-    public List<RemoteGameObject> HandleResponse(Dictionary<string, string> responseDict)
-    {
-        Debug.Log("Number of items: " + responseDict.Count);
-        try
-        {
-            var remoteGameObjects = JsonConvert.DeserializeObject<List<RemoteGameObject>>(responseDict["gameObjects"]);
-            isRequesting = false;
-            return remoteGameObjects;
-        }
-        catch(Exception e)
-        {
-            Debug.LogError(e.Message);
-            isRequesting = false;
-            return new List<RemoteGameObject>();
-        }
-    }
-}
 
-class GetIdHandler
-{
-    public bool CanRequest(WebSocket webSocket)
-    {
-        if(webSocket.State == WebSocketState.Open && IsRequesting == false && GotIdentity == false)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public async void DoRequest(WebSocket websocket)
-    {
-        Dictionary<string, string> getIdRequestData = new Dictionary<string, string>();
-        getIdRequestData.Add("type", "idRequest");
-        getIdRequestData.Add("date", CurrentDateUtility.GetCurrentDate() );
-        IsRequesting = true;
-        await websocket.SendText(JsonConvert.SerializeObject(getIdRequestData));
-    }
 
-    public static readonly string GET_ID = "getId";
-    public bool IsRequesting = false;
-    public bool GotIdentity = false;
-    public string WebsocketClientId = "";
 
-    
-    public void HandleResponse(Dictionary<string, string> responseDict)
-    {
-        if (responseDict["type"] == "getId")
-        {
-            WebsocketClientId = responseDict["id"];
-            GotIdentity = true;
-            IsRequesting = false;
-        }
-    }
-}
 
-class CurrentDateUtility
-{
-    public static string GetCurrentDate()
-    {
-        return DateTime.UtcNow.ToString(CultureInfo.CreateSpecificCulture("en-US"));
-    }
-}
 
-public class RemoteGameObject
-{
-    [JsonProperty("id")]
-    public string id { get; set; }
-    [JsonProperty("positionX")]
-    public float positionX { get; set; }
-    [JsonProperty("positionY")]
-    public float positionY { get; set; }
-    [JsonProperty("positionZ")]
-    public float positionZ { get; set; }
-
-}
