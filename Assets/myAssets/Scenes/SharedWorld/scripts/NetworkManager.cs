@@ -92,7 +92,15 @@ class GetWorldHandler
         if (responseDict["type"] == "worldRequest")
         {
             Debug.Log("Number of items: " + responseDict.Count);
-            //TODO: Lida com o retorno do mundo
+            try
+            {
+                var remoteGameObjects = JsonConvert.DeserializeObject<List<RemoteGameObject>>(responseDict["gameObjects"]);
+                Debug.Log(remoteGameObjects.Count);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
             isRequesting = false;
         }
     }
@@ -143,4 +151,17 @@ class CurrentDateUtility
     {
         return DateTime.UtcNow.ToString(CultureInfo.CreateSpecificCulture("en-US"));
     }
+}
+
+public class RemoteGameObject
+{
+    [JsonProperty("id")]
+    public string id { get; set; }
+    [JsonProperty("positionX")]
+    public float positionX { get; set; }
+    [JsonProperty("positionY")]
+    public float positionY { get; set; }
+    [JsonProperty("positionZ")]
+    public float positionZ { get; set; }
+
 }
