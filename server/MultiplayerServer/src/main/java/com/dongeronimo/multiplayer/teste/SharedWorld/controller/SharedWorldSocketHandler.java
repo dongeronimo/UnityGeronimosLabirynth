@@ -1,6 +1,10 @@
 package com.dongeronimo.multiplayer.teste.SharedWorld.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.dongeronimo.multiplayer.teste.SharedWorld.infra.ClientManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +37,11 @@ public class SharedWorldSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         WebSocketSession clientThatSentMsg = clientManager.getClient(session.getId());
-        getIdHandler.dealWithRequestId(clientThatSentMsg, message);
+        Map<String, String> requestData = new ObjectMapper().readValue(message.getPayload(), HashMap.class);
+        String type = requestData.get("type");
+        if(type.equals("idRequest")){
+            getIdHandler.dealWithRequestId(clientThatSentMsg);
+        }
         logger.info("Client "+session.getId()+" sent "+message.getPayload());
     }
 }

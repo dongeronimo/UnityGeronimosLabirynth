@@ -13,11 +13,9 @@ import org.springframework.web.socket.WebSocketSession;
 
 @Component
 public class GetIdHandler {
-    public void dealWithRequestId(WebSocketSession clientSessionRequestingId, TextMessage message) throws IOException{
-        if(message.getPayload().equals("getId")){
-            String json = buildRequestIdJson(clientSessionRequestingId.getId());
-            sendMessageToClient(clientSessionRequestingId, json);
-        }
+    public void dealWithRequestId(WebSocketSession clientSessionRequestingId) throws IOException{
+        String json = buildRequestIdJson(clientSessionRequestingId.getId());
+        sendMessageToClient(clientSessionRequestingId, json);
     }
     private String buildRequestIdJson(String clientId) throws JsonProcessingException {
         Map<String, String> elements = new HashMap<>();
