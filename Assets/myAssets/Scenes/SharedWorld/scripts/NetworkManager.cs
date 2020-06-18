@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using NativeWebSocket;
 using UnityEngine;
 using Newtonsoft.Json;
+using System;
+using System.Globalization;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class NetworkManager : MonoBehaviour
     public bool isAlive = false;
     public bool isConnected = false;
     private GetIdHandler getIdHandler = new GetIdHandler();
+    private GetWorldHandler getWorldHandler = new GetWorldHandler();
     // Start is called before the first frame update
     async void Start()
     {
@@ -25,7 +28,8 @@ public class NetworkManager : MonoBehaviour
         string jsonString = System.Text.Encoding.Default.GetString(data);
         Dictionary<string, string> responseDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
         ValidateHasTypeElseThrowError(responseDict);
-        getIdHandler.HandleGetIdResponse(responseDict);
+        getIdHandler.HandleResponse(responseDict);
+        getWorldHandler.HandleResponse(responseDict);
         if (getIdHandler.GotIdentity == true)
         {
             WebsocketClientId = getIdHandler.WebsocketClientId;
@@ -46,38 +50,82 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if(websocket.State == WebSocketState.Open)
+        isConnected = websocket.State == WebSocketState.Open;
+        if(getWorldHandler.CanRequest(websocket, WebsocketClientId))
         {
-            isConnected = true;   
-            getIdHandler.RequestIdentity(websocket);
+            getWorldHandler.DoRequest(websocket, WebsocketClientId);
+        }
+        if (getIdHandler.CanRequest(websocket))
+        {
+            getIdHandler.DoRequest(websocket);
+        }
+    }
+}
+
+class GetWorldHandler
+{
+    private bool isRequesting = false;
+    public bool CanRequest(WebSocket websocket, string WebsocketClientId)
+    {
+        if(websocket.State == WebSocketState.Open && WebsocketClientId != null && WebsocketClientId.Length > 0 && isRequesting == false)
+        {
+            return true;
         }
         else
         {
-            isConnected = false;
+            return false;
+        }
+    }
+    public async void DoRequest(WebSocket websocket, string WebsocketClientId)
+    {
+        isRequesting = true;
+        Dictionary<string, string> currentStatusRequestData = new Dictionary<string, string>();
+        currentStatusRequestData.Add("type", "worldRequest");
+        currentStatusRequestData.Add("client", WebsocketClientId);
+        currentStatusRequestData.Add("date", CurrentDateUtility.GetCurrentDate());
+        await websocket.SendText(JsonConvert.SerializeObject(currentStatusRequestData));
+    }
+    public void HandleResponse(Dictionary<string, string> responseDict)
+    {
+        if (responseDict["type"] == "worldRequest")
+        {
+            //TODO: Lida com o retorno do mundo
+            isRequesting = false;
         }
     }
 }
 
 class GetIdHandler
 {
+    public bool CanRequest(WebSocket webSocket)
+    {
+        if(webSocket.State == WebSocketState.Open && IsRequesting == false && GotIdentity == false)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public async void DoRequest(WebSocket websocket)
+    {
+        Dictionary<string, string> getIdRequestData = new Dictionary<string, string>();
+        getIdRequestData.Add("type", "idRequest");
+        getIdRequestData.Add("date", CurrentDateUtility.GetCurrentDate() );
+        IsRequesting = true;
+        await websocket.SendText(JsonConvert.SerializeObject(getIdRequestData));
+    }
+
     public static readonly string GET_ID = "getId";
     public bool IsRequesting = false;
     public bool GotIdentity = false;
     public string WebsocketClientId = "";
 
-    public async void RequestIdentity(WebSocket socket)
-    {
-        if (!IsRequesting && !GotIdentity)
-        {
-            await socket.SendText(GET_ID);
-            IsRequesting = true;
-        }
-    }
-    public void HandleGetIdResponse(Dictionary<string, string> responseDict)
+    
+    public void HandleResponse(Dictionary<string, string> responseDict)
     {
         if (responseDict["type"] == "getId")
         {
@@ -85,5 +133,13 @@ class GetIdHandler
             GotIdentity = true;
             IsRequesting = false;
         }
+    }
+}
+
+class CurrentDateUtility
+{
+    public static string GetCurrentDate()
+    {
+        return DateTime.UtcNow.ToString(CultureInfo.CreateSpecificCulture("en-US"));
     }
 }
