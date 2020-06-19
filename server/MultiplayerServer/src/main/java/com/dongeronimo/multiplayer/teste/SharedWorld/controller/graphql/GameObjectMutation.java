@@ -7,22 +7,28 @@ import com.dongeronimo.multiplayer.teste.SharedWorld.service.GameObjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+//Mutation for new game object
 // mutation {
-//     newGameObject(positionX:1.0, positionY:2.0, positionZ:3.4){
+//     newGameObject (position:{
+//         x:10.0
+//         y:11.0
+//         z:14.0
+//     }){
 //         id
-//         positionX
-//         positionY
-//         positionZ
+//         position {
+//             x
+//             y
+//             z
+//         }
 //     }
-// }
+//}
 
 @Component
 public class GameObjectMutation implements GraphQLMutationResolver {
     @Autowired
     private GameObjectService gameObjectService;
-    //newGameObject(positionX:Float!, positionY:Float!, positionZ: Float!):GameObject!
-    public GameObject newGameObject(float positionX, float positionY, float positionZ){
-        return gameObjectService.createNew(positionX, positionY, positionZ);
+
+    public GameObject newGameObject(Vector3 position){
+        return gameObjectService.createNew(position);
     }
 }

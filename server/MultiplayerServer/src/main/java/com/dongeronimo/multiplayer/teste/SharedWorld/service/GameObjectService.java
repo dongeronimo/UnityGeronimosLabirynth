@@ -21,10 +21,14 @@ public class GameObjectService {
         return gameObjectRepository.get(id);
     }
 
-    public GameObject createNew(float positionX, float positionY, float positionZ){
+    public GameObject createNew(Vector3 position){
         initRepositoryIfNull();
         GameObject newGameObject = new GameObject();
-        newGameObject.setPosition(new Vector3());
+        Vector3 pos = new Vector3();
+        // pos.x = positionX;
+        // pos.y = positionY;
+        // pos.z = positionZ;
+        newGameObject.setPosition(position);
         newGameObject.setId(UUID.randomUUID().toString());
         gameObjectRepository.put(newGameObject.getId(), newGameObject);
         return newGameObject;

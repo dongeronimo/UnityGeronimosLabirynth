@@ -1,8 +1,3 @@
-type Greeting {
-    id: ID!
-    message: String!
-}
-
 type Vector3 {
     x: Float!
     y: Float!
@@ -15,12 +10,16 @@ type GameObject {
     children: [GameObject]!
 }
 
+input PositionInput {
+    x: Float!
+    y: Float!
+    z: Float!
+}
 type Query {
-    getGreeting(id: ID!):Greeting
     getGameObjectById(id: String!):GameObject
 }
 
 type Mutation {
-    newGreeting(message:String!):Greeting!
-    newGameObject(positionX:Float!, positionY:Float!, positionZ: Float!):GameObject!
+    newGameObject(position:PositionInput):GameObject!
+    # newGameObject(positionX:Float!, positionY:Float!, positionZ: Float!):GameObject!
 }

@@ -7,15 +7,7 @@ import com.dongeronimo.multiplayer.teste.SharedWorld.service.GameObjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 // {
-//     getGameObjectById(id:"0384a406-4b41-47ff-80a1-2d9f1df4f62d"){
-//         id
-//         positionX
-//         positionY
-//         positionZ
-//         children {
-//             id
-//         }
-//     }
+//     getGameObjectById(id:"44351c53-0167-4bfc-a770-e20f85ab43eb"){
 //}
 @Component
 public class GameObjectQuery implements GraphQLQueryResolver {
