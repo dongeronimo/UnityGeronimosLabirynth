@@ -3,20 +3,19 @@ package com.dongeronimo.multiplayer.teste.SharedWorld.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * First attempt at representing a game object in the server.
  */
 
 public class GameObject {
     private String id;
-    private Float positionX;
-    private Float positionY;
-    private Float positionZ;
+    private Vector3 position;
     private GameObject parent;
     private List<GameObject> children;
 
-    public Float getPositionZ() {
-        return positionZ;
+    public GameObject(){
+        position = new Vector3();
     }
 
     public GameObject getParent() {
@@ -45,26 +44,23 @@ public class GameObject {
     public void setId(String id) {
         this.id = id;
     }
-
-    public Float getPositionX() {
-        return positionX;
+    
+    public Vector3 getPosition(){
+        return position;
     }
-
-    public void setPositionX(Float positionX) {
-        this.positionX = positionX;
+    public void setPosition(Vector3 pos){
+        position = pos;
     }
-
-    public Float getPositionY() {
-        return positionY;
+    @Override
+    public boolean equals(Object o){
+        if(o==null || o instanceof GameObject == false){
+            return false;
+        }else{
+            return ((GameObject)o).id.equals(this.id);
+        }
     }
-
-    public void setPositionY(Float positionY) {
-        this.positionY = positionY;
+    @Override
+    public int hashCode(){
+        return id.hashCode();
     }
-
-    public void setPositionZ(Float positionZ) {
-        this.positionZ = positionZ;
-    }
-
-
 }

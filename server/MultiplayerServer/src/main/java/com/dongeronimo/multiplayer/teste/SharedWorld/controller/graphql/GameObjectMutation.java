@@ -2,6 +2,7 @@ package com.dongeronimo.multiplayer.teste.SharedWorld.controller.graphql;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.dongeronimo.multiplayer.teste.SharedWorld.model.GameObject;
+import com.dongeronimo.multiplayer.teste.SharedWorld.model.Vector3;
 import com.dongeronimo.multiplayer.teste.SharedWorld.service.GameObjectService;
 
 import org.springframework.beans.factory.annotation.Autowired;

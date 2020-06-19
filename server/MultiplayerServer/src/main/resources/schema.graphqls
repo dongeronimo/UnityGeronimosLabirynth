@@ -3,11 +3,14 @@ type Greeting {
     message: String!
 }
 
+type Vector3 {
+    x: Float!
+    y: Float!
+    z: Float!
+}
 type GameObject {
     id: String!
-    positionX : Float!
-    positionY : Float!
-    positionZ : Float!
+    position: Vector3!
     parent: GameObject
     children: [GameObject]!
 }

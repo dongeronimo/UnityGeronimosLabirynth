@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.dongeronimo.multiplayer.teste.SharedWorld.model.GameObject;
+import com.dongeronimo.multiplayer.teste.SharedWorld.model.Vector3;
 
 import org.springframework.stereotype.Component;
 
@@ -23,9 +24,7 @@ public class GameObjectService {
     public GameObject createNew(float positionX, float positionY, float positionZ){
         initRepositoryIfNull();
         GameObject newGameObject = new GameObject();
-        newGameObject.setPositionX(positionX);
-        newGameObject.setPositionY(positionY);
-        newGameObject.setPositionZ(positionZ);
+        newGameObject.setPosition(new Vector3());
         newGameObject.setId(UUID.randomUUID().toString());
         gameObjectRepository.put(newGameObject.getId(), newGameObject);
         return newGameObject;
